@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+		<script>
+			var arr = [1,4,7,9,11,10,2];
+
+			var len = arr.length,i,j,lemp;
+			/*从尾部开始比较*/
+			/*for(i=0;i<len;i++){
+				for(var j= len-1;j>i;j--){
+					if(arr[j-1] > arr[j]){
+						lemp = arr[j-1];
+						arr[j-1] = arr[j];
+						arr[j] = lemp;
+					}
+
+				}
+			};*/
+			//从前面开始进行比较
+			/*for(i=0;i<len;i++){
+				for(j = 0;j<len-1-i;j++){
+					if(arr[j+1] > arr[j]){
+						lemp = arr[j+1];
+						arr[j+1] = arr[j];
+						arr[j] = lemp;
+					}
+
+				}
+			};*/
+			//如果没有交换，直接返回数组
+			var isTranstion = 1;
+			for(i=0;i<len;i++){
+				for(j = 0;j<len-1-i;j++){
+					if(arr[j+1] > arr[j]){
+						lemp = arr[j+1];
+						arr[j+1] = arr[j];
+						arr[j] = lemp;
+						isTranstion = 0;
+					}
+
+				};
+				//if(!!isTranstion) return arr;
+			};
+
+
+			console.log(arr);
+
+		</script>
+	</head>
+
+	<body>
+		
+	</body>
+</html>

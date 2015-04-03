@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			<style>@charset "utf-8";
+			/* CSS Document */
+
+			* { padding: 0; margin: 0; }
+			li { list-style: none; }
+			h4 { line-height: 40px; margin-bottom: 10px; border-bottom: 1px solid #333; }
+			#parent { width: 600px; margin: 0 auto; }
+			p { width: 100%; background: #f1f1f1; margin-bottom: 25px; line-height:24px;}
+			#box { width: 580px; padding: 25px 10px 0; border: 1px solid #ddd; margin-bottom: 10px; }
+			#text { width: 100%; height: 90px; overflow: auto; }
+			#box .spanStyle {
+				padding:0px 5px;
+				color: #000;
+			}
+			#btn { width: 100%; height: 50px; }
+			.pClick{ background-color:blue; }
+			.green{ background-color: green;}
+			.yellow{ background-color: yellow;}
+			.red{ background-color: red;}
+			</style>
+
+		</style>
+		<script>
+			/*
+				点击btn:
+					如果内容为空：alert("请输入内容！");
+					如果有内容：
+						向box添加内容
+							判断是奇行偶行
+								奇数行：red
+								偶数行：yellow
+							鼠标经过每一条时：添加green
+				
+				点击每一条p：
+					1. 变换背景颜色，添加pClick
+						鼠标经过每一条时：添加green
+						移出时：添加pClick
+
+					2. 变换背景颜色，（判断奇偶行）
+							奇数行：red
+							偶数行：yellow
+							鼠标经过每一条时：添加green
+							移出时：（判断奇偶行）
+
+
+			*/
+			window.onload = function (){
+				var oBox = document.getElementById("box");	
+				var oText = document.getElementById("text");
+				var oBtn = document.getElementById("btn");
+
+				var onOff = true;
+
+				oBtn.onclick = function (){
+					var oTextVal = oText.value;
+
+					if( oTextVal == "" ){
+						alert("请输入内容！");
+
+					}else{ //内容不为空
+
+						if(onOff){
+							oBox.innerHTML = "";
+							onOff = false;
+						};
+
+						var oP = oBox.getElementsByTagName("p");
+						//判断奇行还是偶数行；
+						var len = oP.length;
+						var p = "<p><span class='spanStyle'>"+(++len)+"</span>"+oTextVal+"</p>";
+						oBox.innerHTML += p;
+
+						var aP = oBox.getElementsByTagName("p");
+
+						for( var i = 0; i < aP.length; i++ ){
+
+							aP[i].index = i;
+
+							//添加开关
+
+							aP[i].onOff = true;
+
+							if( i % 2 == 0 ){
+								aP[i].className = "red";
+							}else{
+								aP[i].className = "yellow";
+							};
+
+							aP[i].onmouseover = function (){
+
+								this.className = "green";	
+							};
+							aP[i].onmouseout = function (){
+								if(this.onOff){
+									if( this.index % 2 == 0 ){
+										this.className = "red";
+									}else{
+										this.className = "yellow";
+										
+									};
+								}else{
+									this.className = "pClick";
+								}
+								
+							};
+
+							aP[i].onclick = function (){
+								if( this.onOff ){
+									this.className = "pClick";
+									this.onOff = false;
+								}else{
+									if( this.index % 2 == 0 ){
+										this.className = "red";
+									}else{
+										this.className = "yellow";
+										
+									};
+									this.onOff = true;
+								}
+								
+							};
+
+						}
+
+					};
+
+				};
+			};
+		</script>
+	</head>
+
+	<body>
+		<div id="parent">
+			<h4>留言内容：</h4>
+			<div id="box"><em>这里会显示留言内容……</em></div>
+			<textarea id="text"></textarea><br />
+			<input id="btn" type="button" value="发表留言" />
+		</div>
+
+	</body>
+</html>

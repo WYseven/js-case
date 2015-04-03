@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			body ,ul , li,p,h3{
+				margin: 0px;
+				padding: 0px;
+			}
+
+			li {
+				list-style: none;	
+			}
+
+			#box {
+				padding: 20px;
+			}
+
+			#box h3 {
+				float: left;
+			}
+
+			#oUl {
+				width: 300px;
+			}
+
+			#oUl li {
+				float: left;
+				margin: 0px 10px;
+				cursor: pointer;
+			}
+
+			#msg , #pingfen {
+				float: left;
+			}
+
+			#msg {
+				display: none;
+			}
+
+			#oUl li.red{
+				color:red;
+			}
+
+			#oUl li.gray{
+				color:gray;
+			}
+
+		</style>
+		<script>
+			/*
+				鼠标移入li，添加class
+			
+				   1. 在当前li左边的li，(包括当前的li)添加class，右边的li去掉class
+			
+						当左边li的下标 < 2,   添加gray
+						当左边li的下标 >= 2， 添加red
+				点击了li
+					鼠标移出:还原回点击的状态
+						
+					再次移入: 如步骤1效果
+				不点击li
+					鼠标移出；去掉所有的class
+					再次移入: 如步骤1效果
+			
+			*/
+
+			window.onload = function (){
+				var oUl = document.getElementById("oUl");
+				var aLi = oUl.getElementsByTagName("li");
+				var pingfen = document.getElementById("pingfen");
+				var oMsg = document.getElementById("msg");
+				var aSpan = oMsg.getElementsByTagName("span");
+				var len = aLi.length;
+				var n = -1;
+			for( var i = 0; i < len; i++ ){
+				aLi[i].index = i;
+				aLi[i].onmouseover = function(){
+					var index = this.index;
+					
+					//消失评分的p
+					pingfen.style.display = "none";
+					oMsg.style.display = "block";
+					for( var k = 0; k < len; k++ ){
+						//控制span的隐藏的
+						aSpan[k].style.display = "none";
+						if( k <= index ){ //左边的li
+							if( index < 2){
+								aLi[k].className = "gray"
+							}else{
+								aLi[k].className = "red"	
+							}
+						}else{  //右边的li
+							aLi[k].className = ""	
+						}				
+					};
+					aSpan[index].style.display = "block";
+				};
+				
+				aLi[i].onmouseout = function(){
+					for( var j = 0; j < len; j++ ){
+						
+						if( j <= n ){  //左边li
+							
+							if( n < 2 ){
+								aLi[j].className = "gray";
+							}else{
+								aLi[j].className = "red";
+							}
+							
+						}else{	//右边的li
+							aLi[j].className = "";
+						}
+						
+						
+	}	
+				};
+				
+				aLi[i].onclick = function(){
+					n = this.index;
+				};
+				
+				
+					
+			}	
+				
+			};
+		</script>
+	</head>
+
+	<body>
+		<div id="box">
+			<h3>评分</h3>
+			<ul id="oUl">
+				<li>*</li>
+				<li>*</li>
+				<li>*</li>
+				<li>*</li>
+				<li>*</li>
+			</ul>
+			<p id="pingfen">请评分</p>
+			<div id="msg">
+				<span>很差</span>
+				<span>一般</span>
+				<span>还行</span>
+				<span>推荐</span>
+				<span>力荐</span>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			body,ul,li {
+				padding:0px;
+				margin:0px;
+			}
+			li {
+				list-style: none;
+			}
+			#all {
+				width: 50%;
+				margin: 20px auto;
+			}
+			#all li {
+				padding: 5px 0px;
+				cursor: pointer;
+			}
+			#all ul {
+				border-bottom: 1px solid #000;
+			}
+
+			#all ul li.yellow{
+				background: yellow;
+			}
+			#all ul li.white{
+				background: white;
+			}
+			#all ul li.gray{
+				background: #999;
+			}
+		</style>
+		<script>
+			/*
+				
+				给所有的li添加class：
+					判断奇偶行
+						奇行添加class为 yellow
+						偶行添加class为white
+
+				鼠标移入li的时候：
+					添加class为gray
+
+				鼠标移出li的时候：
+					如果当前li里面的input选中了：
+						添加class为gray
+					如果当前li里面的input未选中：
+						判断奇偶行
+							奇行添加class为 yellow
+							偶行添加class为white
+	
+				点击li(主要对准的是全选)：
+
+					1.勾选上了input
+						
+						判断所有的li是否全被选中
+
+					2. 不勾选上input
+						
+						取消全选的选中状态
+
+
+				点击全选：
+
+					1. 选中状态：
+						选中所有的input
+						给所有的li添加class为gray
+					2. 没选中状态：
+						取消选中所有的input
+							判断奇偶行
+							奇行添加class为 yellow
+							偶行添加class为white
+			*/
+
+			window.onload = function (){
+				var oUl = document.getElementById("oUl");		
+				var aLi = oUl.getElementsByTagName("li");		
+				var aInput = oUl.getElementsByTagName("input");	
+				var allChecked = document.getElementById("allChecked");	
+
+				var len = aLi.length;
+				var onOff = true;	
+
+				for( var i = 0; i < len; i++ ){
+
+					aLi[i].index = i;
+
+					 i % 2 == 0  ? aLi[i].className = "yellow" : aLi[i].className = "white";
+				
+					 aLi[i].onmouseover = function (){
+					 	this.className = "gray";	
+					 };
+					aLi[i].onmouseout = function (){
+						if( !aInput[this.index].checked ){
+						this.index % 2 == 0  ? this.className = "yellow" : this.className = "white";
+						};
+					};
+
+					aInput[i].onclick = function (){
+
+						if( this.checked ){  //选中
+							
+							allChecked.checked = isChecked();
+
+						}else{	//没选中
+							allChecked.checked = false;
+						}	
+					};
+				};
+
+				function isChecked(){
+					for( var k = 0; k < len; k++){
+						if( !aInput[k].checked ){
+							return false;
+						};
+					};
+					return true;
+				}
+
+				allChecked.onclick = function (){
+
+					for( var j = 0; j < len; j++ ){
+						aInput[j].checked = this.checked;
+						if(this.checked){
+							aLi[j].className = "gray";
+						}else{
+							j % 2 == 0  ? aLi[j].className = "yellow" : aLi[j].className = "white";
+						}
+						
+					};	
+				};
+			};
+		</script>
+	</head>
+
+	<body>
+		<div id="all">
+			<ul id="oUl">
+				<li>
+					<input type="checkbox" />
+					<span>私奔</span>
+					<span>梁博</span>
+				</li>
+				<li>
+					<input type="checkbox" />
+					<span>私奔</span>
+					<span>梁博</span>
+				</li>
+				<li>
+					<input type="checkbox" />
+					<span>私奔</span>
+					<span>梁博</span>
+				</li>
+				<li>
+					<input type="checkbox" />
+					<span>私奔</span>
+					<span>梁博</span>
+				</li>
+				<li>
+					<input type="checkbox" />
+					<span>私奔</span>
+					<span>梁博</span>
+				</li>
+				<li>
+					<input type="checkbox" />
+					<span>私奔</span>
+					<span>梁博</span>
+				</li>
+				<li>
+					<input type="checkbox" />
+					<span>私奔</span>
+					<span>梁博</span>
+				</li>
+			</ul>
+			<div id="allBox">
+				<input type="checkbox" id="allChecked" />
+				<span>全选</span>
+			</div>
+		</div>
+	</body>
+</html>

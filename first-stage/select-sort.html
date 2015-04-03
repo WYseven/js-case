@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+		<script>
+			var arr = [1,4,7,8,10,2];
+			function fn(arr){
+				if(arr.length<=1) return arr;
+				var len = arr.length,
+					middleNum = Math.floor(len/2),
+					middleVal = arr.splice(middleNum, 1)[0],
+					left = [],right = [];
+				for(var i=0;i<arr.length;i++){
+					if(arr[i] < middleVal){
+						left.push(arr[i]);
+					}else{
+						 right.push(arr[i]);
+					};
+				};
+				return fn(left).concat([middleVal],fn(right));
+			};
+
+			console.log(fn(arr));;
+
+		</script>
+	</head>
+
+	<body>
+		
+	</body>
+</html>

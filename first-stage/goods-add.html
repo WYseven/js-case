@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+            body,ul,p{margin:0;padding:0;}
+            li{list-style:none;}
+            strong,b{font-weight: normal;}
+            em,i{font-style: inherit;}
+            a{color:#000;text-decoration: none;}
+    </style>
+   <script>
+  
+  		/*
+			操作的单条li：
+			
+				点击“+”:
+				
+					数量：+1 / ++
+					小计： 数量 * 单价
+					总数量：+1 / ++;
+					总花费：+单价
+					
+				点击“-”：
+					
+					数量：-1 / --
+						数量小于0：
+							1，等于零
+							2，利用return
+					小计： 数量 * 单价
+					总数量：-1 / --;
+					总花费：-单价
+			最贵商品单价：
+					
+		*/
+		
+		window.onload = function(){
+			var oUL = document.getElementById("list");
+			var aLi = oUL.getElementsByTagName("li");
+			var aSpan = document.getElementById("total_p").getElementsByTagName("span");
+			var aStrong = oUL.getElementsByTagName("strong");
+			var aEm = oUL.getElementsByTagName("em");
+			//计算总数
+			var total = 0;
+			//计算总价
+			var totalZongjia = 0;
+			
+			var zuigui = 0;
+			
+			for(var i = 0; i < aLi.length; i++){
+				priceFn(aLi[i]);
+			};
+		
+			
+			function priceFn(priceLi){
+				var aBtn1 = priceLi.getElementsByTagName("input");
+				var oStrong = priceLi.getElementsByTagName("strong")[0];
+				var oSpan = priceLi.getElementsByTagName("span")[0];
+				var oEm = priceLi.getElementsByTagName("em")[0];
+				
+				var danjia = parseFloat(oEm.innerHTML);
+				//获取oStrong的值
+				var oStrongHtml = parseInt(oStrong.innerHTML);
+				
+				
+				//点击减号
+				aBtn1[0].onclick = function(){
+					
+					if( oStrongHtml <= 0 ){
+					
+						return;
+					};
+					oStrongHtml--;
+					/*if( oStrongHtml <= 0 ){
+						oStrongHtml = 0;
+					};*/
+					total--;
+					totalZongjia -= danjia;
+					aSpan[0].innerHTML = total;
+					aSpan[1].innerHTML = totalZongjia;
+					oStrong.innerHTML = oStrongHtml;
+					oSpan.innerHTML = oStrongHtml *danjia;
+					zuigui = 0;
+					if(oStrongHtml == 0){
+						for(var k = 0; k < aStrong.length; k++){
+							console.log(aEm[k].innerHTML);
+							if( parseInt(aStrong[k].innerHTML) != 0 ){
+								if(zuigui < parseFloat(aEm[k].innerHTML)){
+									zuigui = parseFloat(aEm[k].innerHTML);
+								};
+							}
+						};
+						aSpan[2].innerHTML = zuigui;
+					}
+					
+					
+					
+				};
+				//点击加号
+				aBtn1[1].onclick = function(){
+					oStrongHtml++;
+					total++;
+					totalZongjia += danjia;
+					aSpan[0].innerHTML = total;
+					aSpan[1].innerHTML = totalZongjia;
+					oStrong.innerHTML = oStrongHtml;
+					oSpan.innerHTML = oStrongHtml *danjia;
+					if( zuigui < danjia ){
+						zuigui = danjia;
+					};
+					aSpan[2].innerHTML = zuigui;
+				};
+			};
+			
+				
+		};
+           
+     </script>
+
+
+</head>
+<body>
+
+<ul id="list">
+    <li>
+    <input type="button" value="-">
+    <strong>0</strong>
+    <input type="button" value="+">
+    单价：<em>12.5</em>元
+    小计：<span>0</span>元
+  </li>
+  <li>
+    <input type="button" value="-">
+    <strong>0</strong>
+    <input type="button" value="+">
+    单价：<em>13.5</em>元
+    小计：<span>0</span>元
+  </li>
+  <li>
+    <input type="button" value="-">
+    <strong>0</strong>
+    <input type="button" value="+">
+    单价：<em>14.5</em>元
+    小计：<span>0</span>元
+  </li>
+  <li>
+    <input type="button" value="-">
+    <strong>0</strong>
+    <input type="button" value="+">
+    单价：<em>17.5</em>元
+    小计：<span>0</span>元
+  </li>
+  <li>
+    <input type="button" value="-">
+    <strong>0</strong>
+    <input type="button" value="+">
+    单价：<em>112.5</em>元
+    小计：<span>0</span>元
+  </li>
+    <li>
+    <input type="button" value="-">
+    <strong>0</strong>
+    <input type="button" value="+">
+    单价：<em>100.5</em>元
+    小计：<span>0</span>元
+  </li>
+ 
+</ul>
+
+<p id="total_p">
+商品合计共：<span>0</span>件，共花费了<span>0</span>元<br>
+其中最贵的商品单价是：<span>0</span>元
+</p>
+
+
+
+</body>
+</html>
