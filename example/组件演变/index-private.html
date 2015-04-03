@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+		<script src="../../src/jquery.js"></script>
+		<script>
+
+			//私有变量和方法
+			//只保露初始和渲染方法
+
+			var textContent = (function (){
+				var _bind = function (that){
+					that.input.on("keyup",function (){
+						that.render();	
+					});		
+				};
+				var _getLen = function (that){
+					return that.input.val().length;		
+				};
+
+				var textContentFn = function (){
+						
+				};
+
+				textContentFn.prototype.init = function (config){
+					this.input = config.id;
+					_bind(this);
+					return this;
+				};
+
+				textContentFn.prototype.render = function (){
+					if( $("#num").length == 0 ){
+						console.log("123");
+						this.input.after( '<span id = "num">0个字</span>' );
+					};
+
+					$("#num").html( _getLen(this) +"个字" );	
+				};
+
+				return textContentFn;
+
+			})();
+
+			$(function(){
+
+				console.log(new textContent);
+
+				(new textContent()).init({id:$("#oText")}).render();
+
+			})
+		</script>
+	</head>
+
+	<body>
+		<input type="text" id="oText">
+	</body>
+</html>
