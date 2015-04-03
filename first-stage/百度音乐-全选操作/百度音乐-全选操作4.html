@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			li{
+				list-style: none;
+			}
+			#oUl,#all {
+				padding: 20px;
+			}
+
+			#oUl {
+				width: 200px;
+				border-bottom: 1px solid #333;
+			}
+
+			#oUl li {
+				padding: 5px 0px;
+			}
+
+			#oUl li.blue{
+				background:blue;
+			}
+			#oUl li.white{
+				background:white;
+			}
+
+			#oUl li span {
+				margin:0px 20px;
+			}
+			#oUl li.gray {
+				background:#999;
+			}
+		</style>
+		<script>
+			window.onload = function (){
+				var oUl = document.getElementById("oUl");
+				var aLi = oUl.getElementsByTagName("li");
+				var aInput = oUl.getElementsByTagName("input");
+				var len = aLi.length;
+				var onOff = false;
+				var allChecked = document.getElementById("allChecked");
+
+				for(var i = 0; i < len; i++){
+					if(i % 2 == 0) aLi[i].className = "blue";
+					aLi[i].index = i;
+
+					aLi[i].onmouseover = function(){
+						this.className = "gray";
+					};
+					aLi[i].onmouseout = function(){
+						if(oInput[this.index].checked == false){
+							if( this.index % 2 == 0 ){
+								this.className = "blue";
+							}else{
+								this.className = "white";
+							}
+						};
+						
+					};
+
+					aLi[i].onclick = function(){
+						for( var j = 0; j < aInput.length; j++ ){
+							if(aInput[j].checked == false){
+								onOff = false;
+								break;
+							}else{
+								onOff = true;
+							}
+						};
+						allChecked.checked = onOff;	
+					};
+					
+				};
+
+				allChecked.onclick = function (){
+					for( var j = 0; j < aInput.length; j++ ){
+						if(this.checked){
+							aInput[j].checked = true;
+							aLi[j].className = "gray";
+						}else{
+							aInput[j].checked = false;
+							if( j % 2 == 0 ){
+								aLi[j].className = "blue";
+							}else{
+								aLi[j].className = "white";
+							}
+						}
+					}
+
+				};
+
+			};
+		</script>
+	</head>
+
+	<body>
+		<ul id="oUl">
+			<li>
+				<input type="checkbox">
+				<span>私奔</span>
+				<span>梁博</span>
+			</li>
+			<li>
+				<input type="checkbox">
+				<span>私奔</span>
+				<span>梁博</span>
+			</li>
+			<li>
+				<input type="checkbox">
+				<span>私奔</span>
+				<span>梁博</span>
+			</li>
+			<li>
+				<input type="checkbox">
+				<span>私奔</span>
+				<span>梁博</span>
+			</li>
+			<li>
+				<input type="checkbox">
+				<span>私奔</span>
+				<span>梁博</span>
+			</li>
+			<li>
+				<input type="checkbox">
+				<span>私奔</span>
+				<span>梁博</span>
+			</li>
+		</ul>
+		<div id="all">
+			<input type="checkbox" id="allChecked">
+			<span>全选</span>
+		</div>
+	</body>
+</html>

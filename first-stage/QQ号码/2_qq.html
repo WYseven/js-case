@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script>
+window.onload=function()
+{
+	var oText=document.getElementById("text");
+	var oBtn=document.getElementById("btn");
+	oBtn.onclick=function()
+	{
+		if(oText.value=="")
+		{
+			alert("请输入内容");
+		}
+		else if(isNaN(oText.value))
+		{
+			alert("请输入数字");
+		}
+		else if((Number(oText.value)+"")!=oText.value)
+		{
+			alert("首字母不能为0");
+		}
+		else if(parseInt(oText.value)!=oText.value)
+		{
+			alert("不能是小数");
+		}
+		else if(oText.value.length<=5 || oText.value.length>=10)
+		{
+			alert("数位不对");
+		}
+		else
+		{
+			alert("正确");
+		}
+		
+	};
+};
+</script>
+</head>
+<body>
+<input type="text" id="text" />
+<input type="button" id="btn" />
+</body>
+</html>

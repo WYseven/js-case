@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			body,ul,li,p,span{
+				padding:0px;
+				margin: 0px;
+			}
+			li{
+				list-style: none;
+			}
+			#div1{
+				padding: 30px;
+			}
+			#div1 li{
+				float: left;
+				padding:0px 10px;
+				cursor: pointer;
+			}
+			#div1 p.red{
+				color: red;
+			}
+		</style>
+		<script>
+			window.onload = function (){
+				var oUl1 = document.getElementById("div1");
+				var aLi = document.getElementsByTagName("li");
+				var aP = document.getElementsByTagName("p");
+
+				var middle = Math.ceil(aLi.length / 2);
+				for( var i = 0; i < aLi.length; i++ ){
+
+					aLi[i].index = i;
+
+					aLi[i].onmouseover = function (){
+						for( var j = 0; j <  )
+					};
+					aLi[i].onmouseout = function (){
+						for( var j = 0; j < aP.length; j++ ){
+							aP[j].className = "";
+						}
+					};
+
+				}		
+			};
+		</script>
+	</head>
+
+	<body>
+		<ul id="div1">
+			<li>
+				<p>*</p>
+				<span>-5</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-4</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-3</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-2</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-1</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>0</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>1</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>2</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>3</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>4</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>5</span>
+			</li>
+		</ul>
+	</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			li{
+				list-style: none;
+			}
+
+			#listBox {
+				width: 400px;
+				margin: 20px auto;
+			}
+
+			#list li {
+				padding: 10px;
+			}
+
+			#list li img{
+				cursor: pointer;
+			}
+			#list li div.hide {
+				display: none;
+			}
+			#list li div.show {
+				display: block;
+			}
+
+		</style>
+		<script>
+			window.onload = function (){
+				var oList = document.getElementById("list");
+				var aLi = oList.getElementsByTagName("li");
+
+				for(var i = 0; i < aLi.length; i++){
+					fn(aLi[i]);
+				};
+
+				function fn(oLi){
+					var oDiv = oLi.getElementsByTagName("div");
+					//第一个div中的内容
+					var oneSpan = oDiv[0].getElementsByTagName("span")[0];
+					var oImage = oDiv[0].getElementsByTagName("img")[0];
+
+					//第二个div中的内容
+					var aSpan = oDiv[1].getElementsByTagName("span");
+					var oInput = oDiv[1].getElementsByTagName("input")[0];
+					//点击img编辑
+					oImage.onclick = function (){
+						editor(1,0);
+					};
+					//保存
+					aSpan[0].onclick = function (){
+						editor(0,1,true);
+					};
+					//取消
+					aSpan[1].onclick = function (){
+
+						editor(0,1);
+					};
+
+					function editor(s,e,bl){
+						oDiv[s].className = "show";	
+						oDiv[e].className = "hide";	
+						if(bl){
+							var oInputVal = oInput.value;
+							oneSpan.innerHTML = oInputVal;
+
+						}else{
+							var htmlVal = oneSpan.innerHTML;
+							oInput.value = htmlVal;
+						}
+						
+					}
+				};
+
+			};
+		</script>
+	</head>
+
+	<body>
+		<div  id="listBox">
+			<h3>分类名称</h3>
+			<ul  id="list">
+				<li>
+					<div>
+						<span>妙味课堂</span>
+						<img src="./image/1.png" alt="">
+					</div>
+					<div class="hide">
+						<input type="text" id="editor">
+						<span>保存</span>
+						<span>取消</span>
+					</div>
+				</li>
+				<li>
+					<div>
+						<span>妙味课堂</span>
+						<img src="./image/1.png" alt="">
+					</div>
+					<div  class="hide">
+						<input type="text" id="editor">
+						<span>保存</span>
+						<span>取消</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
