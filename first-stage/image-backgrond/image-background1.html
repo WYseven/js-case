@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			*{padding: 0px;margin:0px;}
+			#imageBox {
+				width: 890px;
+				height: 470px;
+				margin: 0px auto;
+				position: relative;
+			}
+			#imageBox div {
+				position: absolute;
+				background: red;
+				width: 89px;
+				height: 47px;
+			}
+		</style>
+		<script>
+			/*
+				width:89px;
+				height: 47px;
+			*/
+			window.onload = function (){
+				var oImageBox = document.getElementById("imageBox");
+				var str = "",left = 0,top = 0;
+
+				for(var i = 0; i < 100; i++){
+					left = (i % 10) * 89 + ((i % 10)*5);
+					top = Math.floor(i / 10) * 47 +( (i / 10)*5 );
+					str += '<div style="left:'+left+'px;top:'+top+'px;">'+
+							'</div>';
+				};
+
+				oImageBox.innerHTML = str;
+
+			};
+		</script>
+	</head>
+
+	<body>
+		<div id="imageBox"></div>
+	</body>
+</html>
