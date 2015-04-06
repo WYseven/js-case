@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//Dli XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/Dli/xhtml1-transitional.dli">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>简易计算器 - 妙味课堂 - www.miaov.com</title>
+<link rel="stylesheet" type="text/css" href="miaov_style.css" />
+<script>
+	window.onload = function (){
+		var counterContent = document.getElementById("counter_content");
+		var aLi = counterContent.getElementsByTagName("li");
+		var oInput = document.getElementById("input1");
+		var oldVal = "";
+		var mark = "";
+		var oldMark = "";
+		var onOff = true;
+		var clickNum = true;
+		function zhi(htmlVal){
+			onOff = true;
+			if(oldVal.length != 0 && oldMark == htmlVal){
+				mark = htmlVal;
+				oInput.value = calc(parseInt(oldVal) , parseInt(oInput.value),mark);
+				if( clickNum ){
+					oldVal = oInput.value;
+					mark = htmlVal;
+				}else{
+					oldVal = "";
+					mark = "";
+				}
+				
+			}else{
+				oldVal = oInput.value;
+				mark = htmlVal;
+				oldMark = mark;
+			}
+
+		};
+		function calc(num1,num2,mark){
+			switch(mark){
+				case "+":
+					return num1+num2;
+				break;
+				case "-":
+					return num1-num2;
+				break;
+				case "×":
+					return num1*num2;
+				break;
+				case "÷":
+					return num1/num2;
+				break;
+			};
+		}
+		for( var i = 0; i < aLi.length; i++ ){
+
+			aLi[i].onmouseover = function (){
+				this.className = "active";		
+			};
+			aLi[i].onmouseout = function (){
+				this.className = "";		
+			};
+			aLi[i].onclick = function (){
+				var htmlVal = this.innerHTML;
+				if( isNaN( parseInt( htmlVal ) ) ){ //不是数字
+					switch(htmlVal){
+						case "+":
+						case "-":
+						case "×":
+						case "÷":
+							zhi(htmlVal);
+							clickNum = false;
+						break;
+						case "=":
+							oInput.value = calc(parseInt(oldVal),parseInt(oInput.value),mark)
+							oldVal = "";
+							mark = "";
+							onOff = true;
+						break;
+						case "C":
+							oInput.value = 0;
+							oldVal = "";
+							mark = "";
+							onOff = true;
+						break;
+					}
+				}else{
+					if( onOff ){
+						oInput.value = htmlVal;
+						onOff = false;
+						clickNum = true;
+					}else{
+						oInput.value += htmlVal;
+						clickNum = false;
+					}
+					
+				}	
+			};
+		}
+
+	};
+</script>
+</head>
+
+<body>
+
+<div id="counter">
+	<h2>简易计算器 - <a href="http://www.miaov.com">妙味课堂</a> - <a href="http://www.miaov.com">www.miaov.com</a></h2>
+	<div id="counter_content">
+		<h3><input id="input1" type="text" value="0" /></h3>
+		<ul>
+			<li>7</li>
+			<li>8</li>
+			<li>9</li>
+			<li>+</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+			<li>-</li>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>×</li>
+			<li>0</li>
+			<li>C</li>
+			<li>=</li>
+			<li>÷</li>
+		</ul>
+	</div>
+	<div id="bg"></div>
+	<p>加快IE6消亡的步伐，就从WEB前端开发人员做起^_^</p>
+</div>
+</body>
+</html>
