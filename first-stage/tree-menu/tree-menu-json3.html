@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			*{
+				padding: 0px;
+				margin: 0px;
+			}
+			li{
+				list-style: none;
+			}
+			li h4{
+				font-size: 16px;
+			}
+			ul {
+				padding: 5px 0px 0px 20px;
+				display: none;	
+			}
+			ul li div{
+				padding: 5px 0px 0px 40px;
+				display: none;
+			}
+			li ul {
+				
+			}
+		</style>
+		<script>
+			window.onload = function (){
+				var oDiv = document.getElementById("oDiv");
+
+				var jsons = [
+					{
+						"第一级菜单2":[
+							{
+								"第二级菜单":"第三级菜单"
+							},
+							"第二级菜单","第二级菜单","第二级菜单"
+						]
+					},
+					{
+						"第一级菜单3":[
+							{
+								"第二级菜单":["第三级菜单","第三级菜单","第三级菜单"]
+							},
+							"第二级菜单","第二级菜单","第二级菜单"
+						]
+					},
+					{
+						"第一级菜单2":[
+							{
+								"第二级菜单":"第三级菜单"
+							},
+							"第二级菜单","第二级菜单","第二级菜单"
+						]
+					},
+					{
+						"第一级菜单3":[
+							{
+								"第二级菜单":["第三级菜单","第三级菜单","第三级菜单"]
+							},
+							"第二级菜单","第二级菜单","第二级菜单"
+						]
+					}
+				];
+				var k,htmlStr = "",htmlUl = "";
+				for( var i = 0; i < jsons.length; i++ ){
+					htmlUl = "";
+					if(typeof jsons[i] != "string"){
+						for( k in jsons[i] ){
+							if(typeof jsons[i][k] != "string"){
+								for(var z = 0,jsonsK = jsons[i][k]; z < jsonsK.length; z++){
+									if( typeof jsonsK[z] != "string" ){
+										for( var j in jsonsK[z] ){
+											htmlUl += '<li><h4>'+j+'</h4><div>';
+											if( typeof jsonsK[z][j] != "string" ){
+												for( var l = 0; l < jsonsK[z][j].length; l++ ){
+													htmlUl += '<p>'+jsonsK[z][j][l]+'</p>';
+												}
+											}else{
+												htmlUl += '<p>'+jsonsK[z][j]+'</p>';
+											}
+											htmlUl += '</div></li>';
+										}
+									}else{
+										htmlUl += '<li>'+ jsonsK[z] +'</li>';
+									}
+								}
+							};
+
+
+							htmlStr += '<h3>'+k+'</h3>';
+							htmlStr += '<ul>'+htmlUl+'</ul>';
+						};
+					}else{
+						htmlStr += '<h3>'+jsons[i]+'</h3>';
+					};
+					
+				};
+				oDiv.innerHTML = htmlStr;
+
+				//添加事件
+
+				var aH3 = oDiv.getElementsByTagName("h3");
+				var aH4 = oDiv.getElementsByTagName("h4");
+				var oUl = oDiv.getElementsByTagName("ul");
+				var oDiv = oDiv.getElementsByTagName("div");
+
+				for( var h = 0; h < aH3.length; h++ ){
+					aH3[h].index = h;
+					aH3[h].onclick = function (){
+						console.log("123");
+						oUl[this.index].style.display = "block";	
+					};	
+				};
+				for( var g = 0; g < aH4.length; g++ ){
+					aH4[g].index = g;
+					aH4[g].onclick = function (){
+						oDiv[this.index].style.display = "block";	
+					};	
+				}
+
+			};
+
+		</script>
+	</head>
+
+	<body>
+		<div id="oDiv">
+			<!-- <h3>第一级菜单</h3>
+			<ul>
+				<li>
+					<h4>第二级菜单</h4>
+					<div>
+						<p>第三级菜单</p>
+						<p>第三级菜单</p>
+						<p>第三级菜单</p>
+						<p>第三级菜单</p>
+					</div>
+				</li>
+				<li>第二级菜单</li>
+				<li>第二级菜单</li>
+				<li>第二级菜单</li>
+			</ul>
+			<h3>第一级菜单</h3>
+			<ul>
+				<li>
+					<h4>第二级菜单</h4>
+					<div>
+						<p>第三级菜单</p>
+						<p>第三级菜单</p>
+						<p>第三级菜单</p>
+						<p>第三级菜单</p>
+					</div>
+				</li>
+				<li>第二级菜单</li>
+				<li>第二级菜单</li>
+				<li>第二级菜单</li>
+			</ul> -->
+		</div>
+	</body>
+</html>
