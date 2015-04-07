@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			body,ul,li,p,span{
+				padding:0px;
+				margin: 0px;
+			}
+			li{
+				list-style: none;
+			}
+			ul{
+				padding: 30px;
+				float: left;
+			}
+			#one,#two {
+				float: left;
+				padding: 40px;
+			}
+			ul li{
+				float: left;
+				padding:0px 10px;
+				cursor: pointer;
+			}
+			ul p.red{
+				color: red;
+			}
+		</style>
+		<script>
+			/*
+				鼠标移入：
+					1. 判断左半边还是右半边
+						当前 > 5 右半边
+							判断右半边左右：
+								大于当前的 为右边
+								小于当前的 为左边
+						当前 <=5 左半边
+							判断左半边左右：
+								大于当前的 为右边
+								小于当前的 为左边
+
+				ul鼠标移出：
+					当点击了：
+						如判断1，当条件变成了点击后的索引值
+					没点击：
+						去掉所有p的class
+
+				鼠标点击：				
+					记录当前鼠标点击的元素的索引值
+			*/
+
+			window.onload = function (){
+
+				var oUl1 = document.getElementById("div1");
+				var oUl2 = document.getElementById("div2");
+				var one = document.getElementById("one");
+				var two = document.getElementById("two");
+
+				fn(oUl1,one);
+				fn(oUl2,two);
+
+				function fn(oUl1,oneAndTwo){
+						
+					var aLi = oUl1.getElementsByTagName("li");
+					var aP = oUl1.getElementsByTagName("p");
+					var aSpan = oUl1.getElementsByTagName("span");
+
+					var len = aLi.length;
+
+					var n;
+					var totalNum = 0;
+
+					var middle = Math.floor(len / 2);
+
+					for( var i = 0; i < len; i++ ){
+						aLi[i].index = i;
+						aLi[i].onmouseover = function (){
+							tabFn(this.index);
+						};
+						aLi[i].onclick = function (){
+							n = this.index;
+						};
+					};
+
+					function tabFn(num){
+						for( var k = 0; k < aLi.length; k++ ){
+							aP[k].className = "";
+						};
+						if( num > middle ){ //右边
+								for( var k = middle+1; k < len; k++ ){
+									if( num >= k ){
+										aP[k].className = "red";
+										totalNum += parseInt(aSpan[k].innerHTML);
+									};
+								};
+
+								oneAndTwo.innerHTML = totalNum / ( num - middle );
+								totalNum = 0;
+
+							}else{
+								for( var k = 0; k <= middle; k++ ){
+									if( num <= k ){
+										aP[k].className = "red";
+										totalNum += parseInt(aSpan[k].innerHTML);
+									};
+								};
+								var kk = parseInt(totalNum / ( num - middle ));
+								oneAndTwo.innerHTML = isNaN(kk) ? 0 : kk;
+								totalNum = 0;
+							}	
+					}
+
+					oUl1.onmouseout = function (){
+						tabFn(n);
+					};
+				}
+
+
+			};
+		</script>
+	</head>
+
+	<body>
+		<ul id="div1">
+			<li>
+				<p>*</p>
+				<span>-5</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-4</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-3</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-2</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-1</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>0</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>1</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>2</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>3</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>4</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>5</span>
+			</li>
+		</ul>
+		<p id="one">0</p>
+		<ul id="div2">
+			<li>
+				<p>*</p>
+				<span>-6</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-5</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-4</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-3</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-2</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-1</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>0</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>1</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>2</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>3</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>4</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>5</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>6</span>
+			</li>
+		</ul>
+		<p id="two">0</p>
+	</body>
+</html>

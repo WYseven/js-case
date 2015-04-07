@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			body,ul,li,p,span{
+				padding:0px;
+				margin: 0px;
+			}
+			li{
+				list-style: none;
+			}
+			#div1{
+				padding: 30px;
+			}
+			#div1 li{
+				float: left;
+				padding:0px 10px;
+				cursor: pointer;
+			}
+			#div1 p.red{
+				color: red;
+			}
+		</style>
+		<script>
+			/*
+				鼠标移入：
+					1. 判断左半边还是右半边
+						当前 > 5 右半边
+							判断右半边左右：
+								大于当前的 为右边
+								小于当前的 为左边
+						当前 <=5 左半边
+							判断左半边左右：
+								大于当前的 为右边
+								小于当前的 为左边
+
+				ul鼠标移出：
+					当点击了：
+						如判断1，当条件变成了点击后的索引值
+					没点击：
+						去掉所有p的class
+
+				鼠标点击：				
+					记录当前鼠标点击的元素的索引值
+			*/
+
+			window.onload = function (){
+				var oUl1 = document.getElementById("div1");
+				var aLi = document.getElementsByTagName("li");
+				var aP = document.getElementsByTagName("p");
+				var aSpan = document.getElementsByTagName("span");
+
+				var len = aLi.length;
+
+				var n;
+
+				var middle = Math.floor(len / 2);
+
+				for( var i = 0; i < len; i++ ){
+					aLi[i].index = i;
+					aLi[i].onmouseover = function (){
+						for( var k = 0; k < aLi.length; k++ ){
+							aP[k].className = "";
+						};
+						for( var j = 0; j < len; j++ ){
+							if( j > 5 && j <= this.index  ){ //右半边
+								aP[j].className = "red";
+							};
+							if( j <= 5 && j >= this.index  ){ //右半边
+								
+								aP[j].className = "red";
+								
+							};
+						};
+					};
+
+					aLi[i].onclick = function (){
+						n = this.index;
+					};
+				};
+
+				oUl1.onmouseout = function (){
+					for( var k = 0; k < aLi.length; k++ ){
+						aP[k].className = "";
+					};
+					for( var j = 0; j < len; j++ ){
+						if( j > 5 && j <= n  ){ //右半边
+							aP[j].className = "red";
+						};
+						if( j <= 5 && j >= n ){ //右半边
+							
+							aP[j].className = "red";
+							
+						};
+					};	
+				};
+
+			};
+		</script>
+	</head>
+
+	<body>
+		<ul id="div1">
+			<li>
+				<p>*</p>
+				<span>-5</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-4</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-3</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-2</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-1</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>0</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>1</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>2</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>3</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>4</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>5</span>
+			</li>
+		</ul>
+	</body>
+</html>
