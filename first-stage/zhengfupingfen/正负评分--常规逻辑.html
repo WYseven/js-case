@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			body {
+				margin: 0px;
+				padding:0px;
+			}
+			li{
+				list-style: none;
+			}
+			#oUl li {
+				float: left;
+				padding: 0px 10px;
+				cursor: pointer;
+			}
+	
+			#oUl p.red{
+				color: red;
+			}
+
+		</style>
+		<script>
+
+			/*
+				鼠标移入：
+					1. 判断左半边还是右半边
+						当前的下标 <= 5 左半边
+							for( var i = 0; i <= 5;i++ )
+								当前下标 > i  //右边
+									添加class
+						当前的下标 > 5  右半边
+							for( var i = 5; i <= 长度;i++ )
+								当前下标 < i  //左边
+									添加class
+				ul 身上加onmouseout：
+					没有点击li：
+						移除所有p的class
+					如果点击了li：
+						回到点击的状态：
+							如步骤1；
+
+
+				点击了li：
+					存储点击li的下标
+			*/
+
+			window.onload = function (){
+				var oUl = document.getElementById("oUl");
+				var aLi = oUl.getElementsByTagName("li");	
+				var oSpan = oUl.getElementsByTagName("span");
+				var oP = oUl.getElementsByTagName("p");
+
+				var len = aLi.length;
+
+				var middle = Math.floor(len / 2); //中间值
+				var n;
+
+				for( var i = 0; i < len; i++ ){
+					aLi[i].index = i;
+					aLi[i].onmouseover = function (){
+						tabFn(this.index);		
+					};
+					aLi[i].onclick = function (){
+						n = this.index;	
+					};
+				};
+
+				function tabFn(index){
+					for( var k = 0; k < len; k++ ){
+						oP[k].className = "";
+					};
+
+					if( index > middle ){ //右半边
+						for( var j = middle+1; j < len; j++ ){
+							if( index >= j ){ //左边
+								oP[j].className = "red";
+							}else{	//右边
+								oP[j].className = "";
+							}
+						}
+					}else{  //左半边
+						for( var j = 0; j <= middle; j++ ){
+							if( index <= j ){ //右边
+								oP[j].className = "red";
+							}else{	//左边
+								oP[j].className = "";
+							}
+						}
+					}	
+				}
+
+				oUl.onmouseout = function (){
+					tabFn(n);	
+				};
+
+			};
+		</script>
+	</head>
+
+	<body>
+		<ul id="oUl">
+			<li>
+				<p>*</p>
+				<span>-5</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-4</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-3</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-2</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-1</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>0</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>1</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>2</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>3</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>4</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>5</span>
+			</li>
+		</ul>
+	</body>
+</html>

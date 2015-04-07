@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			body {
+				margin: 0px;
+				padding:0px;
+			}
+			li{
+				list-style: none;
+			}
+			#oUl li {
+				float: left;
+				padding: 0px 10px;
+				cursor: pointer;
+			}
+	
+			#oUl p.red{
+				color: red;
+			}
+
+		</style>
+		<script>
+
+			/*
+				鼠标移入：
+					判断左半边还是右半边
+						当前的下标 <= 5 左半边
+							for( var i = 0; i <= 5;i++ )
+								当前下标 > i  //右边
+									添加class
+						当前的下标 > 5  右半边
+							for( var i = 5; i <= 长度;i++ )
+								当前下标 < i  //左边
+									添加class
+
+			*/
+
+			window.onload = function (){
+				var oUl = document.getElementById("oUl");
+				var aLi = oUl.getElementsByTagName("li");	
+				var oSpan = oUl.getElementsByTagName("span");
+				var oP = oUl.getElementsByTagName("p");
+
+				var len = aLi.length;
+
+				var middle = Math.floor(len / 2); //中间值
+
+				for( var i = 0; i < len; i++ ){
+					aLi[i].index = i;
+					aLi[i].onmouseover = function (){
+						for( var j = 0; j < len; j++ ){
+							if( this.index > middle && this.index <= j ){
+								oP[j].className = "red";
+							};
+
+							if( this.index <= middle && this.index >= j ){
+								oP[j].className = "red";
+							};
+						}
+					};
+				}
+
+			};
+		</script>
+	</head>
+
+	<body>
+		<ul id="oUl">
+			<li>
+				<p>*</p>
+				<span>-5</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-4</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-3</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-2</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>-1</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>0</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>1</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>2</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>3</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>4</span>
+			</li>
+			<li>
+				<p>*</p>
+				<span>5</span>
+			</li>
+		</ul>
+	</body>
+</html>
