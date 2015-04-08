@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="miaov_style.css" />
+		<style>
+			
+		</style>
+		<script>
+			window.onload = function (){
+				var counterContent = document.getElementById("counter_content");
+				var aLi = counterContent.getElementsByTagName("li");
+				var oInput = document.getElementById("input1");
+
+				/*
+					给每一个li添加点击，区分点击的是否是数字
+				*/
+				//设置开关，方便在点击符号后，重新向input输入新的值
+				var isClick = true;  
+				//记录点击符号之前点击的数字
+				var oldVal = "";
+				//记录点击的符号
+				var mark = "";
+
+				for( var i = 0; i < aLi.length; i++ ){
+					aLi[i].onclick = function (){
+						
+						var liHtml = this.innerHTML;
+
+						if( isNaN( liHtml ) ){  //不是数字
+
+							switch(liHtml){
+								case "+":
+								case "-":
+								case "×":
+								case "÷":
+									getVal(liHtml);
+								break;
+								case "C":
+									oldVal = "";
+									oInput.value = 0;
+									isClick = true;
+									mark = "";
+								break;
+								case "=":
+									//一直是+，要根据点击的符号来确认运算
+									oInput.value = calc( parseInt(oldVal), parseInt(oInput.value),mark );
+									oldVal = "";
+								break;
+							}
+						}else{//点击的是数字
+							if( isClick ){
+								oInput.value = liHtml;
+								isClick = false;
+							}else{
+								oInput.value += liHtml;
+							}
+						}
+
+					};
+				};
+
+				function getVal(marks){
+					isClick = true;
+					//记录之前的点击的值
+					if( oldVal.length != 0){
+						oInput.value = calc(parseInt(oInput.value), parseInt(oldVal),marks);
+						oldVal = "";
+					}else{
+						oldVal = oInput.value;
+					}
+					
+					mark = marks;	
+				};
+
+				function calc(num1,num2,marks){
+					if( isNaN(num1) ) return num2;
+					switch(marks){
+						case "+":
+							return num1 + num2;
+						break;
+						case "-":
+							return num1 - num2;
+						break;
+						case "×":
+							return num1 * num2;
+						break;
+						case "÷":
+							return num1 / num2;
+						break;
+						default:
+							return num2;
+					};
+				}
+
+			};
+		</script>
+	</head>
+
+	<body>
+		<div id="counter">
+			<h2>简易计算器 - <a href="http://www.miaov.com">妙味课堂</a> - <a href="http://www.miaov.com">www.miaov.com</a></h2>
+			<div id="counter_content">
+				<h3><input id="input1" type="text" value="0" /></h3>
+				<ul>
+					<li>7</li>
+					<li>8</li>
+					<li>9</li>
+					<li>+</li>
+					<li>4</li>
+					<li>5</li>
+					<li>6</li>
+					<li>-</li>
+					<li>1</li>
+					<li>2</li>
+					<li>3</li>
+					<li>×</li>
+					<li>0</li>
+					<li>C</li>
+					<li>=</li>
+					<li>÷</li>
+				</ul>
+			</div>
+			<div id="bg"></div>
+			<p>加快IE6消亡的步伐，就从WEB前端开发人员做起^_^</p>
+		</div>
+	</body>
+</html>
