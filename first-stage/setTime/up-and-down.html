@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			body,ul,li {
+				margin: 0px;
+				padding: 0px;
+			}
+			li{
+				list-style: none;
+			}
+			
+			#box {
+				width: 150px;
+				height: 500px;
+				border:1px solid #333;
+				position: relative;
+			}
+
+			#up,#down {
+				width: 100%;
+				height: 30px;
+			}
+
+			#ulBox {
+				height: 440px;
+				overflow: hidden;
+			}
+
+			#ulList {
+			}
+
+			#ulList li {
+				height: 100px;
+				line-height: 100px;
+				font-size: 30px;
+				color: #fff;
+				background:green;
+				border-bottom: 1px solid #ffc;
+				text-align: center;
+			}
+
+		</style>
+		<script>
+
+			function getStyle(obj,attr){
+				if(window.getComputedStyle){
+					return window.getComputedStyle(obj)[attr]
+				}else{
+					return obj.currentStyle[attr];
+				}
+			}
+
+			window.onload = function (){
+				var oUp = document.getElementById("up");		
+				var oDown = document.getElementById("down");
+				var ulBox = document.getElementById("ulBox");		
+				var ulList = document.getElementById("ulList");
+
+				var n = 0;
+
+				var ulBoxHeight = parseInt(getStyle(ulBox,"height"));
+				var ulListHeight = parseInt(getStyle(ulList,"height"));
+				var timer;
+				
+				oUp.onmousedown = function (){
+					clearInterval(timer);
+					timer = setInterval(function(){
+						n += 12;
+						if(n >= ulListHeight - ulBoxHeight){
+							clearInterval(timer);
+							n = ulListHeight - ulBoxHeight;
+						};
+						ulList.style.marginTop = -n+"px"
+					},100);
+				};
+				oDown.onmousedown = function (){
+					timer = setInterval(function(){
+						n -= 12;
+						if(n <=0){
+							clearInterval(timer);
+							n = 0;
+						};
+						ulList.style.marginTop = -n+"px"
+					},100);
+				};
+
+			};
+		</script>
+	</head>
+
+	<body>
+		<div id="box">
+			<button id="up">上</button>
+			<div id="ulBox">
+				<ul id="ulList">
+					<li>1</li>
+					<li>2</li>
+					<li>3</li>
+					<li>4</li>
+					<li>5</li>
+					<li>6</li>
+					<li>7</li>
+					<li>8</li>
+					<li>9</li>
+				</ul>
+			</div>
+			<button id="down">下</button>
+		</div>
+	</body>
+</html>	
