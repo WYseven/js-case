@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			*{
+				margin: 0px;
+				padding: 0px;
+
+			}
+			#addImage {
+				width: 890px;
+				height: 480px;
+			}
+			#addImage div {
+				width: 89px;
+				height: 48px;
+				position: absolute;
+				left: 0px;
+				top:0px;
+				background: red;
+			}
+			#addImage div.images  {
+				background-image: url(./1.jpg);
+				background-repeat: no-repeat;
+				border: 2px solid #fff;
+			}
+		</style>
+		<script>
+			window.onload = function (){
+				var oAddImage = document.getElementById("addImage");
+				var str = "";
+				var l = 0;
+				var t = 0;
+
+				var arr = [];
+
+				for( var i = 0; i < 100; i++ ){
+
+					l = ( i % 10 ) * 89;  //left值
+					t = Math.floor( i / 10 ) * 48; //top:值
+
+					str += '<div style="left:'+l+'px;top:'+t+'px;background-position: -'+l+'px -'+t+'px"></div>';
+				};
+				oAddImage.innerHTML = str;
+
+				var aDiv = oAddImage.getElementsByTagName("div");
+
+				for( var j = 0; j < aDiv.length; j++ ){
+					aDiv[j].onmouseover = function (){
+						this.style.width = 85+"px";
+						this.style.height = 44+"px";
+						this.className = "images";		
+					};
+				}
+
+			};
+		</script>
+	</head>
+
+	<body>
+		<div id="addImage">
+		</div>
+	</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			*{
+				margin: 0px;
+				padding: 0px;
+
+			}
+			#addImage {
+				width: 890px;
+				height: 480px;
+			}
+			#addImage div {
+				width: 85px;
+				height: 44px;
+				position: absolute;
+				left: 0px;
+				top:0px;
+				border: 2px solid #fff;
+			}
+		</style>
+		<script>
+			window.onload = function (){
+				var oAddImage = document.getElementById("addImage");
+				var str = "";
+				var l = 0;
+				var t = 0;
+
+				var arr = [];
+
+				for( var i = 0; i < 100; i++ ){
+
+					l = ( i % 10 ) * 89;  //left值
+					t = Math.floor( i / 10 ) * 48; //top:值
+
+					str += '<div style="left:'+l+'px;top:'+t+'px;"></div>';
+					arr.push({left:l,top:t});
+				};
+				oAddImage.innerHTML = str;
+
+				var aDiv = oAddImage.getElementsByTagName("div");
+
+				for( var j = 0; j < aDiv.length; j++ ){
+					aDiv[j].index = j;
+					var left = arr[j]["left"];
+						var top = arr[j]["top"];
+					aDiv[j].style.background = 'url(./1.jpg) no-repeat -'+left+'px -'+top+'px ';
+				}
+
+			};
+		</script>
+	</head>
+
+	<body>
+		<div id="addImage">
+		</div>
+	</body>
+</html>
