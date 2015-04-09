@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>翻滚吧，牛宝宝！</title>
+<link rel="stylesheet" href="../reset.css">
+<style>
+html{height:100%;}
+body{height:100%;}
+li{list-style: none;}
+ul{text-align: center;width:100%; height: 100%; position: relative;}
+li{ position: absolute;left: 0px;top:0px; width: 50px;height: 50px;background:red;}
+
+</style>
+<script>
+    window.onload=function(){
+        var oUl=document.getElementsByTagName('ul')[0];
+        var aLi=oUl.getElementsByTagName('li');
+        var oBody=document.getElementsByTagName('body')[0];
+        var Off=true;
+        var iHig=200;
+        var oTimer=0;
+        var iNow=0;
+        var sHtml="";
+
+
+        for(var i=0;i<20;i++)
+        {
+            sHtml+='<li style="left:'+60*i+'px"></li>';
+        }
+        oUl.innerHTML=sHtml;
+        var onOff = true;
+        var n = 0;
+        var kk = 0;
+        var speed = -20;
+          oBody.onclick=function(){
+            if(onOff){
+              speed = -speed;
+              for( var i = 0; i < aLi.length; i++ ){
+                  fnLi(aLi[i],i,speed);
+              };
+             
+            };
+             onOff = false;
+          };  
+
+          function fnLi(li,i,speed){
+              setTimeout(function (){
+                li.timer = setInterval(function (){
+                  if( css(li,"top") >= 500 && speed > 0){
+                      clearInterval(li.timer);
+                      kk++;
+                      if(kk == aLi.length) onOff = true;
+                      return;
+                   };
+                   if( css(li,"top") <= 0 && speed < 0){
+                      clearInterval(li.timer);
+                      kk--;
+                      if(kk == 0) onOff = true;
+                      return;
+                   };
+
+                  li.style.top = css(li,"top") + speed +'px';
+                  
+                },50); 
+              },i*50);              
+          }
+        
+function css(obj,attr,val)
+{
+  if(arguments.length>=3)
+  {
+    if(attr=="opacity")
+    {
+      obj.style.opacity=val/100;
+      obj.style.filter="alpha(opacity="+val+")";
+    }
+    else
+    {
+      obj.style[attr]=val+"px";
+    }
+  }
+  else
+  {
+    var iVal=obj.currentStyle?parseFloat(obj.currentStyle[attr]):parseFloat(getComputedStyle(obj)[attr]);
+    if(attr=="opacity")
+    {
+      iVal*=100;
+    }
+    return iVal;
+  }
+}
+};
+</script>
+</head>
+
+<body>
+    <ul>
+    </ul>
+</body>
+</html>
