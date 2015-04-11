@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+		window.onload = function (){
+			
+			var lastChild = document.body.lastChild;
+			document.body.removeChild(lastChild);	
+		};
+	</script>
+</head>
+<body>
+		<select name="" value="first" id="selects">
+			<option value="first">从前向后下落</option>
+			<option value="last">从后向前下落</option>
+		</select>
+		<button>开始</button>
+</body>
+</html>
+<script src="./tools.js"></script>
+<script>
+	var str='';
+	var len=20;
+	var timer=null;
+	var onOff=true;
+
+	for(var i=0;i<len;i++){
+		str+='<div style="width:50px; height:50px; background-color:red; position:absolute; top:50px; left:'+i*60+'px;"></div>'
+	}
+
+	document.body.innerHTML +=str;	
+	var aDiv=document.getElementsByTagName('div');
+
+	var selects = document.getElementById("selects");
+	var oBtn = document.getElementsByTagName("button");
+	//先保存下初始的方向
+	var val = selects.value;
+	selects.onchange = function (){
+		val = this.value;
+		oBtn[0].innerHTML = "开始";
+	};
+
+	oBtn[0].onclick = function (){
+		if(onOff){
+			this.innerHTML = "返回";
+			fn(500,val);
+		}else{
+			this.innerHTML = "开始";
+			fn(50,val);
+		};	
+	};
+	function fn(target,direction){
+		if( timer ){
+			return;
+		};
+		var num,term,parms,index;
+		if(direction == "first"){
+			num = 0;
+			parms = 1;
+			term = len;
+		}else{
+			num = len-1;
+			term = 0;
+			parms = -1;
+		}
+		timer=setInterval(function(){
+			tools.startMove(aDiv[num],'top',25,target);
+			num = num + parms;
+			index = parms > 0 ? len-1 : 0;
+			if(num>=term && term == len  || num<term && term == 0){
+				if(tools.css(aDiv[index],"top") == target){
+					onOff = !onOff;
+					clearInterval(timer);
+					timer = 0;
+					
+				};
+				num= parms > 0 ? 0 : len-1
+			}
+		},30);	
+	};
+
+</script>
