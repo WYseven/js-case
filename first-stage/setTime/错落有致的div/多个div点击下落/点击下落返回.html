@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+</html>
+<script src="./tools.js"></script>
+<script>
+	var str='';
+	var len=20;
+	var timer=null;
+	var num=0;
+	var aDiv=document.getElementsByTagName('div');
+	var onOff=true;
+
+	for(var i=0;i<len;i++){
+		str+='<div style="width:50px; height:50px; background-color:red; position:absolute; top:0; left:'+i*60+'px;"></div>'
+	}
+
+	document.body.innerHTML=str;
+	
+
+	
+	document.onclick=function(){
+		if(onOff){
+			if( timer ){
+				return;
+			};
+			timer=setInterval(function(){
+				
+				tools.startMove(aDiv[num],'top',25,500);
+				num++;
+				if(num==len){
+					if(tools.css(aDiv[len-1],"top") == 500){
+						onOff = false;
+						clearInterval(timer);
+						timer = 0;
+					};
+					num=0;
+				}
+			},30);	
+		}else{
+			if( timer ){
+				return;
+			};
+			timer=setInterval(function(){
+				
+				tools.startMove(aDiv[num],'top',25,0);
+				num++;
+				if(num==len){
+					if(tools.css(aDiv[len-1],"top") == 0){
+						onOff = true;
+						clearInterval(timer);
+						timer = 0;
+					};
+					num=0;
+				}
+			},30);
+		}
+	}
+</script>

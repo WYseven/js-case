@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+</html>
+<script src="./tools.js"></script>
+<script>
+	var str='';
+	var len=20;
+	var timer=null;
+	var aDiv=document.getElementsByTagName('div');
+	var onOff=true;
+
+	for(var i=0;i<len;i++){
+		str+='<div style="width:50px; height:50px; background-color:red; position:absolute; top:0; left:'+i*60+'px;"></div>'
+	}
+
+	document.body.innerHTML=str;
+
+	function fn(target,direction){
+		if( timer ){
+			return;
+		};
+		var num,term,parms,index;
+		if(direction == "first"){
+			num = 0;
+			parms = 1;
+			term = len;
+		}else{
+			num = len-1;
+			term = 0;
+			parms = -1;
+		}
+		timer=setInterval(function(){
+			tools.startMove(aDiv[num],'top',25,target);
+			num = num + parms;
+			index = parms > 0 ? len-1 : 0;
+			if(num>=term && term == len  || num<term && term == 0){
+				if(tools.css(aDiv[index],"top") == target){
+					onOff = !onOff;
+					clearInterval(timer);
+					timer = 0;
+					
+				};
+				num= parms > 0 ? 0 : len-1
+			}
+		},30);	
+	};
+	document.onclick=function(){
+		if(onOff){
+			fn(500,"first");
+		}else{
+			fn(0);
+		}
+	}
+</script>
